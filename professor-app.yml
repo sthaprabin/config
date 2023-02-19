@@ -1,0 +1,52 @@
+server:
+  port: 5051
+
+
+#KeyCloak configuration
+keycloak:
+  auth-server-url: http://localhost:8080
+  realm: College
+  resource: student-app
+  use-resource-role-mappings: true
+  credentials:
+    secret: gxzKIow1pMPx53JBlX5haXpHZBMW7wxn
+  bearer-only: true
+
+spring:
+  application:
+    name: Professor-App
+  #Postgres
+  datasource:
+    url: jdbc:postgresql://localhost:5432/eazybank
+    username: postgres
+    password: pass
+    driver-class-name: org.postgresql.Driver
+  jpa:
+    open-in-view: false
+  #Oauth2 configuration with keycloak
+#  security:
+#    oauth2:
+#      client:
+#        registration:
+#          oauth2-client-credentials:
+#            client-id: student-app
+#            client-secret: gxzKIow1pMPx53JBlX5haXpHZBMW7wxn
+#            authorization-grant-type: password
+#            scope:
+#              - openid
+#              - profile
+#              - roles
+#            provider: keycloak
+#        provider:
+#          keycloak:
+#            issuer-uri: http://localhost:8080/realms/College
+#            token-uri: http://localhost:8080/realms/College/protocol/openid-connect/token
+
+keycloak-extra:
+  logout: http://localhost:8080/realms/College/protocol/openid-connect/logout
+  introspect: http://localhost:8080/realms/College/protocol/openid-connect/token/introspect
+
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: http://localhost:8761/eureka
